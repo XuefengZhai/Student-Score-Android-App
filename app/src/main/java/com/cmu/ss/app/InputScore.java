@@ -99,6 +99,20 @@ public class InputScore extends ActionBarActivity {
 
         }
 
+        else if(studentAlreadyExit()){
+
+            Context context = getApplicationContext();
+            CharSequence text = "Student already exit!";
+            int duration = Toast.LENGTH_LONG;
+
+            Toast toast = Toast.makeText(context, text, duration);
+            toast.show();
+
+            Intent intent = new Intent(this, InputScore.class);
+            startActivity(intent);
+
+        }
+
 
         else if (countStudentNo.isFortyStudentNo()) {
 
@@ -155,6 +169,21 @@ public class InputScore extends ActionBarActivity {
 
             Intent intent = new Intent(this, InputScore.class);
             startActivity(intent);
+
+        }
+
+        else if(studentAlreadyExit()){
+
+            Context context = getApplicationContext();
+            CharSequence text = "Student already exit!";
+            int duration = Toast.LENGTH_LONG;
+
+            Toast toast = Toast.makeText(context, text, duration);
+            toast.show();
+
+            Intent intent = new Intent(this, InputScore.class);
+            startActivity(intent);
+
 
         }
 
@@ -223,6 +252,23 @@ public class InputScore extends ActionBarActivity {
             return true;
         }
         else return false;
+
+    }
+
+    public boolean studentAlreadyExit(){
+
+        stuIdET = (EditText) findViewById(R.id.id);
+        stuId = Integer.parseInt(stuIdET.getText().toString());
+
+        SQLiteDatabase db = openOrCreateDatabase("score.db", Context.MODE_PRIVATE, null);
+        String sql = "SELECT stu_id FROM student WHERE stu_id="+stuId;
+        Cursor c;
+        c = db.rawQuery(sql,null);
+        if( c.getCount()>0){
+            return true;
+        }
+        else return false;
+
 
     }
 }
